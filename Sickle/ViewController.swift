@@ -9,10 +9,29 @@
 import UIKit
 
 class ViewController: UIViewController {
-
+    
+//    override func touchesBegan(touches: Set<NSObject>, withEvent event: UIEvent) {
+//        self.view.endEditing(true)
+//    }
+    
+    @IBOutlet weak var bgWebView: UIWebView!
+    
+    func loadBackground() {
+        let bgPath = NSBundle.mainBundle().pathForResource("gp9OspM", ofType: "gif")
+        let gif = NSData(contentsOfFile: bgPath!)
+        
+        bgWebView.loadData(gif!, MIMEType: "image/gif", textEncodingName: String(), baseURL: NSURL())
+    }
+    
+    func tableLoad() {
+        
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view, typically from a nib.
+        
+        loadBackground()
+        tableLoad()
     }
 
     override func didReceiveMemoryWarning() {

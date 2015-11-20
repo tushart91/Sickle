@@ -63,6 +63,9 @@
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="15"/>
                                 <state key="normal" title="Search"/>
+                                <connections>
+                                    <action selector="searchButton:" destination="vXZ-lx-hvc" eventType="touchUpInside" id="15w-uy-K2o"/>
+                                </connections>
                             </button>
                             <button opaque="NO" alpha="0.90000000000000002" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="qqW-rK-uXo">
                                 <rect key="frame" x="168" y="400" width="74" height="30"/>
@@ -103,7 +106,7 @@
                                 <rect key="frame" x="190" y="490" width="114" height="21"/>
                                 <animations/>
                                 <fontDescription key="fontDescription" style="UICTFontTextStyleFootnote"/>
-                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                         </subviews>
@@ -112,17 +115,103 @@
                     </view>
                     <navigationItem key="navigationItem" id="2pN-cx-Z58"/>
                     <connections>
+                        <outlet property="addressTextField" destination="t7n-Ia-EDL" id="frX-dh-lG9"/>
                         <outlet property="bgWebView" destination="BgU-3C-wtq" id="Otj-Qy-Ddf"/>
+                        <outlet property="cityTextField" destination="P7k-bI-OCZ" id="KKb-MU-wsw"/>
                         <outlet property="clearButton" destination="qqW-rK-uXo" id="qMr-GK-Chm"/>
                         <outlet property="poweredByButton" destination="PzJ-we-1Yf" id="uwT-5b-co4"/>
                         <outlet property="searchButton" destination="byt-Px-aRL" id="YIs-IM-AfK"/>
                         <outlet property="statePicker" destination="hPa-bd-75o" id="29K-cZ-VLf"/>
+                        <outlet property="temperatureSelector" destination="gBR-DW-XxY" id="BSN-Yn-THz"/>
                         <segue destination="Gsl-0q-hli" kind="push" identifier="aboutSegue" id="gQ6-Dr-Bd5"/>
+                        <segue destination="tpH-UV-5do" kind="push" identifier="resultSegue" id="8we-fP-lAz"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="x5A-6p-PRh" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="639" y="259"/>
+            <point key="canvasLocation" x="488" y="259"/>
+        </scene>
+        <!--Next 24 Hours-->
+        <scene sceneID="Vo8-mq-fM9">
+            <objects>
+                <viewController title="Next 24 Hours" id="RkB-ej-fp4" customClass="NextHoursViewController" customModule="Sickle" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="qHT-KI-I8A"/>
+                        <viewControllerLayoutGuide type="bottom" id="wBg-7J-PT4"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="3Yw-0G-sKr">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <animations/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                    <tabBarItem key="tabBarItem" title="Next 24 Hours" id="sEy-3F-LEe"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="RyC-Z2-JFO" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="867" y="987"/>
+        </scene>
+        <!--Next 7 Days-->
+        <scene sceneID="xh9-Vb-XmT">
+            <objects>
+                <viewController title="Next 7 Days" id="73e-6l-5tC" customClass="NextSevenViewController" customModule="Sickle" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="MXa-ni-W0o"/>
+                        <viewControllerLayoutGuide type="bottom" id="fmD-Hw-nea"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="BBd-h6-1DQ">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <animations/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                    <tabBarItem key="tabBarItem" title="Next 7 Days" id="UBN-rE-B3Y"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="ozh-jq-e5c" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1245" y="924"/>
+        </scene>
+        <!--Right Now-->
+        <scene sceneID="41w-1M-z7D">
+            <objects>
+                <viewController title="Right Now" id="gJL-ns-oHJ" customClass="RightNowViewController" customModule="Sickle" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="Bup-zZ-tUe"/>
+                        <viewControllerLayoutGuide type="bottom" id="mmF-Wc-PED"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="2hK-os-I5K">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <animations/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                    <tabBarItem key="tabBarItem" title="Right Now" id="TEZ-JX-SZJ"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="I2r-lW-TKn" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="488" y="987"/>
+        </scene>
+        <!--Results-->
+        <scene sceneID="gRP-gg-U9Q">
+            <objects>
+                <tabBarController id="tpH-UV-5do" customClass="TabBarController" customModule="Sickle" customModuleProvider="target" sceneMemberID="viewController">
+                    <navigationItem key="navigationItem" title="Results" id="mDD-Bt-CZu"/>
+                    <nil key="simulatedBottomBarMetrics"/>
+                    <tabBar key="tabBar" contentMode="scaleToFill" id="2ZC-Jy-Eov">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="49"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                        <animations/>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                    </tabBar>
+                    <connections>
+                        <segue destination="gJL-ns-oHJ" kind="relationship" relationship="viewControllers" id="pan-dH-Ekc"/>
+                        <segue destination="RkB-ej-fp4" kind="relationship" relationship="viewControllers" id="1VM-gU-7pj"/>
+                        <segue destination="73e-6l-5tC" kind="relationship" relationship="viewControllers" id="iF9-eL-bdN"/>
+                    </connections>
+                </tabBarController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="lOa-0l-rYR" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="107" y="924"/>
         </scene>
         <!--About-->
         <scene sceneID="Ep0-fu-bue">
@@ -180,7 +269,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="pEF-9D-BqL" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1046" y="259"/>
+            <point key="canvasLocation" x="867" y="259"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="ipn-j1-b1e">

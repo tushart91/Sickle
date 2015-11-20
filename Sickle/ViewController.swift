@@ -14,65 +14,25 @@ class ViewController: UIViewController, UIPickerViewDataSource, UIPickerViewDele
         self.view.endEditing(true)
     }
     
-    let pickerData = [
-        "Select State",
-        "Alabama",
-        "Alaska",
-        "Arizona",
-        "Arkansas",
-        "California",
-        "Colorado",
-        "Connecticut",
-        "Delaware",
-        "Florida",
-        "Georgia",
-        "Hawaii",
-        "Idaho",
-        "Illinois",
-        "Indiana",
-        "Iowa",
-        "Kansas",
-        "Kentucky",
-        "Louisiana",
-        "Maine",
-        "Maryland",
-        "Massachusetts",
-        "Michigan",
-        "Minnesota",
-        "Mississippi",
-        "Missouri",
-        "Montana",
-        "Nebraska",
-        "Nevada",
-        "New Hampshire",
-        "New Jersey",
-        "New Mexico",
-        "New York",
-        "North Carolina",
-        "North Dakota",
-        "Ohio",
-        "Oklahoma",
-        "Oregon",
-        "Pennsylvania",
-        "Rhode Island",
-        "South Carolina",
-        "South Dakota",
-        "Tennessee",
-        "Texas",
-        "Utah",
-        "Vermont",
-        "Virginia",
-        "Washington",
-        "West Virginia",
-        "Wisconsin",
-        "Wyoming"
+    let pickerData = [[
+            "Select State", "Alabama", "Alaska", "Arizona", "Arkansas", "California", "Colorado", "Connecticut", "Delaware", "District of Columbia", "Florida", "Georgia", "Hawaii", "Idaho", "Illinois", "Indiana", "Iowa", "Kansas", "Kentucky", "Louisiana", "Maine", "Maryland", "Massachusetts", "Michigan", "Minnesota", "Mississippi", "Missouri", "Montana", "Nebraska", "Nevada", "New Hampshire", "New Jersey", "New Mexico", "New York", "North Carolina", "North Dakota", "Ohio", "Oklahoma", "Oregon", "Pennsylvania", "Rhode Island", "South Carolina", "South Dakota", "Tennessee", "Texas", "Utah", "Vermont", "Virginia", "Washington", "West Virginia", "Wisconsin", "Wyoming"
+        ],[
+            "", "AK", "AL", "AR", "AZ", "CA", "CO", "CT", "DC", "DE", "FL", "GA", "HI", "IA", "ID", "IL", "IN", "KS", "KY", "LA", "MA", "MD", "ME", "MI", "MN", "MO", "MS", "MT", "NC", "ND", "NE", "NH", "NJ", "NM", "NV", "NY", "OH", "OK", "OR", "PA", "RI", "SC", "SD", "TN", "TX", "UT", "VA", "VT", "WA", "WI", "WV", "WY"
+        ]
     ]
+    
+    let temperature = ["us", "si"]
     
     @IBOutlet weak var bgWebView: UIWebView!
     @IBOutlet weak var statePicker: UIPickerView!
     @IBOutlet weak var searchButton: UIButton!
     @IBOutlet weak var clearButton: UIButton!
     @IBOutlet weak var poweredByButton: UIButton!
+    @IBOutlet weak var addressTextField: UITextField!
+    @IBOutlet weak var cityTextField: UITextField!
+    @IBOutlet weak var temperatureSelector: UISegmentedControl!
+    
+    var url: NSString!
     
     @IBAction func aboutButton(sender: UIButton) {
         self.performSegueWithIdentifier("aboutSegue", sender: nil)
@@ -122,6 +82,24 @@ class ViewController: UIViewController, UIPickerViewDataSource, UIPickerViewDele
     override func viewWillDisappear(animated: Bool) {
         self.navigationController?.navigationBarHidden = false
     }
+    
+    @IBAction func searchButton(sender: AnyObject) {
+        var address: String! = addressTextField.text.stringByAddingPercentEncodingWithAllowedCharacters(NSCharacterSet.URLQueryAllowedCharacterSet())!
+        var city: String! = cityTextField.text.stringByAddingPercentEncodingWithAllowedCharacters(NSCharacterSet.URLQueryAllowedCharacterSet())!
+        var state: String! = pickerData[1][statePicker.selectedRowInComponent(0)]
+        var unit: String! = temperature[temperatureSelector.selectedSegmentIndex]
+        self.url = "http://sickle-env.elasticbeanstalk.com/index.php?" +
+            "address=" + address + "&city=" + city + "&state=" + state + "&unit=" + unit
+        self.url = "http://sickle-env.elasticbeanstalk.com/index.php?address=1282%20W%2029th%20St&city=Los%20Angeles&state=CA&unit=us"
+        self.performSegueWithIdentifier("resultSegue", sender: nil)
+    }
+    
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject!) {
+        if (segue.identifier == "resultSegue") {
+            var detailVC = segue.destinationViewController as! TabBarController
+            detailVC.url = self.url as! String
+        }
+    }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
@@ -136,11 +114,11 @@ class ViewController: UIViewController, UIPickerViewDataSource, UIPickerViewDele
     }
     
     func pickerView(pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
-        return pickerData.count;
+        return pickerData[0].count;
     }
     
     func pickerView(pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String! {
-        return pickerData[row]
+        return pickerData[0][row]
     }
 }
 

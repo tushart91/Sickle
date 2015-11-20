@@ -31,6 +31,10 @@
 		834E10381ADD324900F36731 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 834E10361ADD324900F36731 /* LaunchScreen.xib */; };
 		834E10441ADD324900F36731 /* SickleTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 834E10431ADD324900F36731 /* SickleTests.swift */; };
 		83596D871BF80CDA007C3F59 /* bg.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 83596D861BF80CDA007C3F59 /* bg.jpg */; };
+		838805271BFEFB8B003CCB64 /* RightNowViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 838805261BFEFB8A003CCB64 /* RightNowViewController.swift */; };
+		838805291BFF007E003CCB64 /* TabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 838805281BFF007E003CCB64 /* TabBarController.swift */; };
+		8388052B1BFF381C003CCB64 /* NextSevenViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8388052A1BFF381C003CCB64 /* NextSevenViewController.swift */; };
+		8388052D1BFF382E003CCB64 /* NextHoursViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8388052C1BFF382E003CCB64 /* NextHoursViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -72,6 +76,10 @@
 		834E10421ADD324900F36731 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		834E10431ADD324900F36731 /* SickleTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SickleTests.swift; sourceTree = "<group>"; };
 		83596D861BF80CDA007C3F59 /* bg.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = bg.jpg; sourceTree = "<group>"; };
+		838805261BFEFB8A003CCB64 /* RightNowViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RightNowViewController.swift; sourceTree = "<group>"; };
+		838805281BFF007E003CCB64 /* TabBarController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TabBarController.swift; sourceTree = "<group>"; };
+		8388052A1BFF381C003CCB64 /* NextSevenViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NextSevenViewController.swift; sourceTree = "<group>"; };
+		8388052C1BFF382E003CCB64 /* NextHoursViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NextHoursViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -141,6 +149,10 @@
 				834E102D1ADD324900F36731 /* AppDelegate.swift */,
 				834E102F1ADD324900F36731 /* ViewController.swift */,
 				8324D2EA1BF9870E00A29A63 /* AboutViewController.swift */,
+				838805261BFEFB8A003CCB64 /* RightNowViewController.swift */,
+				8388052C1BFF382E003CCB64 /* NextHoursViewController.swift */,
+				8388052A1BFF381C003CCB64 /* NextSevenViewController.swift */,
+				838805281BFF007E003CCB64 /* TabBarController.swift */,
 				834E10311ADD324900F36731 /* Main.storyboard */,
 				834E10341ADD324900F36731 /* Images.xcassets */,
 				834E10361ADD324900F36731 /* LaunchScreen.xib */,
@@ -293,7 +305,11 @@
 			files = (
 				834E10301ADD324900F36731 /* ViewController.swift in Sources */,
 				834E102E1ADD324900F36731 /* AppDelegate.swift in Sources */,
+				8388052D1BFF382E003CCB64 /* NextHoursViewController.swift in Sources */,
 				8324D2EB1BF9870E00A29A63 /* AboutViewController.swift in Sources */,
+				838805291BFF007E003CCB64 /* TabBarController.swift in Sources */,
+				838805271BFEFB8B003CCB64 /* RightNowViewController.swift in Sources */,
+				8388052B1BFF381C003CCB64 /* NextSevenViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

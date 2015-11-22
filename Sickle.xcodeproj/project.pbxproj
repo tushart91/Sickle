@@ -7,6 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		830F31931C01A1E5007B9BA4 /* NextSevenTitleViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 830F31921C01A1E5007B9BA4 /* NextSevenTitleViewCell.swift */; };
+		830F31951C01A212007B9BA4 /* NextSevenViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 830F31941C01A212007B9BA4 /* NextSevenViewCell.swift */; };
+		830F319C1C01B471007B9BA4 /* next7.png in Resources */ = {isa = PBXBuildFile; fileRef = 830F319A1C01B471007B9BA4 /* next7.png */; };
+		830F319D1C01B471007B9BA4 /* next24.png in Resources */ = {isa = PBXBuildFile; fileRef = 830F319B1C01B471007B9BA4 /* next24.png */; };
 		8324D2E91BF985EF00A29A63 /* tutiwari.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 8324D2E81BF985EF00A29A63 /* tutiwari.jpg */; };
 		8324D2EB1BF9870E00A29A63 /* AboutViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8324D2EA1BF9870E00A29A63 /* AboutViewController.swift */; };
 		833628521BF8006B00D1BB3C /* dJub4gJ.gif in Resources */ = {isa = PBXBuildFile; fileRef = 8336284F1BF8006B00D1BB3C /* dJub4gJ.gif */; };
@@ -30,6 +34,14 @@
 		834E10351ADD324900F36731 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 834E10341ADD324900F36731 /* Images.xcassets */; };
 		834E10381ADD324900F36731 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 834E10361ADD324900F36731 /* LaunchScreen.xib */; };
 		834E10441ADD324900F36731 /* SickleTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 834E10431ADD324900F36731 /* SickleTests.swift */; };
+		835705121C00673900569D10 /* RightNowImageViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 835705111C00673900569D10 /* RightNowImageViewCell.swift */; };
+		835705141C006AB400569D10 /* RightNowSummaryViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 835705131C006AB400569D10 /* RightNowSummaryViewCell.swift */; };
+		835705161C006D7600569D10 /* RightNowTempViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 835705151C006D7600569D10 /* RightNowTempViewCell.swift */; };
+		835705181C00700C00569D10 /* RightNowMinMaxViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 835705171C00700C00569D10 /* RightNowMinMaxViewCell.swift */; };
+		8357051A1C00757000569D10 /* RightNowNavViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 835705191C00757000569D10 /* RightNowNavViewCell.swift */; };
+		8357051C1C00866F00569D10 /* NextHoursTitleViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8357051B1C00866F00569D10 /* NextHoursTitleViewCell.swift */; };
+		8357051E1C00869700569D10 /* NextHoursHeaderViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8357051D1C00869700569D10 /* NextHoursHeaderViewCell.swift */; };
+		835705201C0086C200569D10 /* NextHoursViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8357051F1C0086C200569D10 /* NextHoursViewCell.swift */; };
 		83596D871BF80CDA007C3F59 /* bg.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 83596D861BF80CDA007C3F59 /* bg.jpg */; };
 		838805271BFEFB8B003CCB64 /* RightNowViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 838805261BFEFB8A003CCB64 /* RightNowViewController.swift */; };
 		838805291BFF007E003CCB64 /* TabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 838805281BFF007E003CCB64 /* TabBarController.swift */; };
@@ -48,6 +60,10 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		830F31921C01A1E5007B9BA4 /* NextSevenTitleViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NextSevenTitleViewCell.swift; sourceTree = "<group>"; };
+		830F31941C01A212007B9BA4 /* NextSevenViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NextSevenViewCell.swift; sourceTree = "<group>"; };
+		830F319A1C01B471007B9BA4 /* next7.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = next7.png; sourceTree = "<group>"; };
+		830F319B1C01B471007B9BA4 /* next24.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = next24.png; sourceTree = "<group>"; };
 		8324D2E81BF985EF00A29A63 /* tutiwari.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = tutiwari.jpg; sourceTree = "<group>"; };
 		8324D2EA1BF9870E00A29A63 /* AboutViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AboutViewController.swift; sourceTree = "<group>"; };
 		8336284F1BF8006B00D1BB3C /* dJub4gJ.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = dJub4gJ.gif; sourceTree = "<group>"; };
@@ -75,6 +91,14 @@
 		834E103D1ADD324900F36731 /* SickleTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SickleTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		834E10421ADD324900F36731 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		834E10431ADD324900F36731 /* SickleTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SickleTests.swift; sourceTree = "<group>"; };
+		835705111C00673900569D10 /* RightNowImageViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RightNowImageViewCell.swift; sourceTree = "<group>"; };
+		835705131C006AB400569D10 /* RightNowSummaryViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RightNowSummaryViewCell.swift; sourceTree = "<group>"; };
+		835705151C006D7600569D10 /* RightNowTempViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RightNowTempViewCell.swift; sourceTree = "<group>"; };
+		835705171C00700C00569D10 /* RightNowMinMaxViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RightNowMinMaxViewCell.swift; sourceTree = "<group>"; };
+		835705191C00757000569D10 /* RightNowNavViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RightNowNavViewCell.swift; sourceTree = "<group>"; };
+		8357051B1C00866F00569D10 /* NextHoursTitleViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NextHoursTitleViewCell.swift; sourceTree = "<group>"; };
+		8357051D1C00869700569D10 /* NextHoursHeaderViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NextHoursHeaderViewCell.swift; sourceTree = "<group>"; };
+		8357051F1C0086C200569D10 /* NextHoursViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NextHoursViewCell.swift; sourceTree = "<group>"; };
 		83596D861BF80CDA007C3F59 /* bg.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = bg.jpg; sourceTree = "<group>"; };
 		838805261BFEFB8A003CCB64 /* RightNowViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RightNowViewController.swift; sourceTree = "<group>"; };
 		838805281BFF007E003CCB64 /* TabBarController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TabBarController.swift; sourceTree = "<group>"; };
@@ -103,6 +127,8 @@
 		834575EC1BF760FF006BC366 /* images */ = {
 			isa = PBXGroup;
 			children = (
+				830F319A1C01B471007B9BA4 /* next7.png */,
+				830F319B1C01B471007B9BA4 /* next24.png */,
 				8324D2E81BF985EF00A29A63 /* tutiwari.jpg */,
 				83596D861BF80CDA007C3F59 /* bg.jpg */,
 				8336284F1BF8006B00D1BB3C /* dJub4gJ.gif */,
@@ -150,8 +176,18 @@
 				834E102F1ADD324900F36731 /* ViewController.swift */,
 				8324D2EA1BF9870E00A29A63 /* AboutViewController.swift */,
 				838805261BFEFB8A003CCB64 /* RightNowViewController.swift */,
+				835705191C00757000569D10 /* RightNowNavViewCell.swift */,
+				835705111C00673900569D10 /* RightNowImageViewCell.swift */,
+				835705131C006AB400569D10 /* RightNowSummaryViewCell.swift */,
+				835705151C006D7600569D10 /* RightNowTempViewCell.swift */,
+				835705171C00700C00569D10 /* RightNowMinMaxViewCell.swift */,
 				8388052C1BFF382E003CCB64 /* NextHoursViewController.swift */,
+				8357051B1C00866F00569D10 /* NextHoursTitleViewCell.swift */,
+				8357051D1C00869700569D10 /* NextHoursHeaderViewCell.swift */,
+				8357051F1C0086C200569D10 /* NextHoursViewCell.swift */,
 				8388052A1BFF381C003CCB64 /* NextSevenViewController.swift */,
+				830F31921C01A1E5007B9BA4 /* NextSevenTitleViewCell.swift */,
+				830F31941C01A212007B9BA4 /* NextSevenViewCell.swift */,
 				838805281BFF007E003CCB64 /* TabBarController.swift */,
 				834E10311ADD324900F36731 /* Main.storyboard */,
 				834E10341ADD324900F36731 /* Images.xcassets */,
@@ -268,6 +304,7 @@
 			files = (
 				833628521BF8006B00D1BB3C /* dJub4gJ.gif in Resources */,
 				834E10331ADD324900F36731 /* Main.storyboard in Resources */,
+				830F319D1C01B471007B9BA4 /* next24.png in Resources */,
 				834575E41BF760F0006BC366 /* cloudy.png in Resources */,
 				834575E21BF760F0006BC366 /* cloud_day.png in Resources */,
 				8324D2E91BF985EF00A29A63 /* tutiwari.jpg in Resources */,
@@ -284,6 +321,7 @@
 				834575EA1BF760F0006BC366 /* snow.png in Resources */,
 				834575E01BF760F0006BC366 /* clear_night.png in Resources */,
 				834575EB1BF760F0006BC366 /* wind.png in Resources */,
+				830F319C1C01B471007B9BA4 /* next7.png in Resources */,
 				834575E51BF760F0006BC366 /* fb_icon.png in Resources */,
 				834E10351ADD324900F36731 /* Images.xcassets in Resources */,
 			);
@@ -303,12 +341,22 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8357051E1C00869700569D10 /* NextHoursHeaderViewCell.swift in Sources */,
+				835705161C006D7600569D10 /* RightNowTempViewCell.swift in Sources */,
 				834E10301ADD324900F36731 /* ViewController.swift in Sources */,
+				8357051A1C00757000569D10 /* RightNowNavViewCell.swift in Sources */,
+				830F31931C01A1E5007B9BA4 /* NextSevenTitleViewCell.swift in Sources */,
 				834E102E1ADD324900F36731 /* AppDelegate.swift in Sources */,
 				8388052D1BFF382E003CCB64 /* NextHoursViewController.swift in Sources */,
 				8324D2EB1BF9870E00A29A63 /* AboutViewController.swift in Sources */,
+				835705141C006AB400569D10 /* RightNowSummaryViewCell.swift in Sources */,
 				838805291BFF007E003CCB64 /* TabBarController.swift in Sources */,
 				838805271BFEFB8B003CCB64 /* RightNowViewController.swift in Sources */,
+				830F31951C01A212007B9BA4 /* NextSevenViewCell.swift in Sources */,
+				835705201C0086C200569D10 /* NextHoursViewCell.swift in Sources */,
+				8357051C1C00866F00569D10 /* NextHoursTitleViewCell.swift in Sources */,
+				835705181C00700C00569D10 /* RightNowMinMaxViewCell.swift in Sources */,
+				835705121C00673900569D10 /* RightNowImageViewCell.swift in Sources */,
 				8388052B1BFF381C003CCB64 /* NextSevenViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -437,6 +485,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
+				FRAMEWORK_SEARCH_PATHS = "";
 				INFOPLIST_FILE = Sickle/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -448,6 +497,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
+				FRAMEWORK_SEARCH_PATHS = "";
 				INFOPLIST_FILE = Sickle/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";

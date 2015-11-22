@@ -91,12 +91,12 @@ class ViewController: UIViewController, UIPickerViewDataSource, UIPickerViewDele
         self.url = "http://sickle-env.elasticbeanstalk.com/index.php?" +
             "address=" + address + "&city=" + city + "&state=" + state + "&unit=" + unit
         self.url = "http://sickle-env.elasticbeanstalk.com/index.php?address=1282%20W%2029th%20St&city=Los%20Angeles&state=CA&unit=us"
-        self.performSegueWithIdentifier("resultSegue", sender: nil)
+        self.performSegueWithIdentifier("rightNowSegue", sender: nil)
     }
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject!) {
-        if (segue.identifier == "resultSegue") {
-            var detailVC = segue.destinationViewController as! TabBarController
+        if (segue.identifier == "rightNowSegue") {
+            var detailVC = segue.destinationViewController as! RightNowViewController
             detailVC.url = self.url as! String
         }
     }

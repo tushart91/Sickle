@@ -33,7 +33,7 @@ class RightNowViewController: UIViewController, UITableViewDataSource {
         super.viewDidLoad()
         design()
         
-        var request : NSMutableURLRequest = NSMutableURLRequest()
+        let request : NSMutableURLRequest = NSMutableURLRequest()
         request.URL = NSURL(string: self.url)
         request.HTTPMethod = "GET"
         
@@ -45,13 +45,15 @@ class RightNowViewController: UIViewController, UITableViewDataSource {
         //                }
         //        })
         
-        var url: NSURL = NSURL(string: self.url)!
-        var response: AutoreleasingUnsafeMutablePointer<NSURLResponse?>=nil
-        var dataVal: NSData =  NSURLConnection.sendSynchronousRequest(request, returningResponse: response, error:nil)!
-        var err: NSError?
-        self.data = (NSJSONSerialization.JSONObjectWithData(dataVal, options: NSJSONReadingOptions.MutableContainers, error: &err) as? NSDictionary)!
+//        var url: NSURL = NSURL(string: self.url)!
+        let response: AutoreleasingUnsafeMutablePointer<NSURLResponse?>=nil
+        let dataVal: NSData =  try! NSURLConnection.sendSynchronousRequest(request, returningResponse: response)
+//        var err: NSError?
+        do {
+            self.data = try (NSJSONSerialization.JSONObjectWithData(dataVal, options: NSJSONReadingOptions.MutableContainers) as? NSDictionary)!
+        } catch _ { }
 
-        for (i, elem) in enumerate(self.precipitation["values"] as! NSArray) {
+        for (i, elem) in (self.precipitation["values"] as! NSArray).enumerate() {
             if ((elem as! Float) <= (self.data["currently"]!["precipIntensity"] as! Float)) {
                 rightnow_celldata[1][0] = (self.precipitation["label"] as! NSArray)[i] as! String
                 break
@@ -75,7 +77,7 @@ class RightNowViewController: UIViewController, UITableViewDataSource {
     }
     
     func convertTime(timestamp: Double, timezoneStr: String) -> String! {
-        var time: NSDate! = NSDate(timeIntervalSince1970: timestamp)
+        let time: NSDate! = NSDate(timeIntervalSince1970: timestamp)
         let timezone: NSDateFormatter = NSDateFormatter()
         timezone.timeZone = NSTimeZone(name: timezoneStr)
         timezone.dateFormat = "h:mm a"
@@ -105,37 +107,37 @@ class RightNowViewController: UIViewController, UITableViewDataSource {
         let cellIdentifier = ["rightnow_nav", "rightnow_image", "rightnow_summary", "rightnow_temp", "rightnow_minmax", "rightnow_cell"]
         var cell: UITableViewCell!
         if (indexPath.item == 0) {
-            var navCellView: RightNowNavViewCell = tableView.dequeueReusableCellWithIdentifier(cellIdentifier[indexPath.item]) as! RightNowNavViewCell
+            let navCellView: RightNowNavViewCell = tableView.dequeueReusableCellWithIdentifier(cellIdentifier[indexPath.item]) as! RightNowNavViewCell
             tableView.rowHeight = 44
             return navCellView
         }
         else if (indexPath.item == 1) {
-            var imageCellView: RightNowImageViewCell = tableView.dequeueReusableCellWithIdentifier(cellIdentifier[indexPath.item]) as! RightNowImageViewCell
+            let imageCellView: RightNowImageViewCell = tableView.dequeueReusableCellWithIdentifier(cellIdentifier[indexPath.item]) as! RightNowImageViewCell
             imageCellView.rightNowImageView.image = UIImage(named: imagemap[self.data!["currently"]!["icon"] as! String]!)
             tableView.rowHeight = 100
             return imageCellView
         }
         else if (indexPath.item == 2) {
-            var summaryCell: RightNowSummaryViewCell = tableView.dequeueReusableCellWithIdentifier(cellIdentifier[indexPath.item]) as! RightNowSummaryViewCell
+            let summaryCell: RightNowSummaryViewCell = tableView.dequeueReusableCellWithIdentifier(cellIdentifier[indexPath.item]) as! RightNowSummaryViewCell
             summaryCell.rightNowSummaryLabel.text = (self.data!["currently"]!["summary"] as? String)!  + " in " + (self.data!["city"] as? String)! + ", " + (self.data!["state"] as? String)!
             tableView.rowHeight = 44
             return summaryCell
         }
         else if (indexPath.item == 3) {
-            var tempCell: RightNowTempViewCell = tableView.dequeueReusableCellWithIdentifier(cellIdentifier[indexPath.item]) as! RightNowTempViewCell
+            let tempCell: RightNowTempViewCell = tableView.dequeueReusableCellWithIdentifier(cellIdentifier[indexPath.item]) as! RightNowTempViewCell
             tempCell.rightNowTempLabel.text = String((self.data!["currently"]!["temperature"] as? Int)!)
             tempCell.rightNowUnitLabel.text = "°" + (unit[self.data!["unit"] as! String]!["temperature"])!
             tableView.rowHeight = 56
             return tempCell
         }
         else if (indexPath.item == 4) {
-            var minmaxCell: RightNowMinMaxViewCell = tableView.dequeueReusableCellWithIdentifier(cellIdentifier[indexPath.item]) as! RightNowMinMaxViewCell
+            let minmaxCell: RightNowMinMaxViewCell = tableView.dequeueReusableCellWithIdentifier(cellIdentifier[indexPath.item]) as! RightNowMinMaxViewCell
             minmaxCell.rightNowMinMaxLabel.text = "L: " + String(((self.data["daily"]!["data"] as! NSArray)[0] as! NSDictionary)["temperatureMin"] as! Int) + "° | H: " + String(((self.data["daily"]!["data"] as! NSArray)[0] as! NSDictionary)["temperatureMax"] as! Int) + "°"
             tableView.rowHeight = 44
             return minmaxCell
         }
         else if (indexPath.item > 4) {
-            cell = tableView.dequeueReusableCellWithIdentifier(cellIdentifier[5]) as! UITableViewCell
+            cell = tableView.dequeueReusableCellWithIdentifier(cellIdentifier[5])!
             cell.textLabel?.text = rightnow_celldata[0][indexPath.item - 5]
             cell.detailTextLabel?.text = rightnow_celldata[1][indexPath.item - 5]
             tableView.rowHeight = 44
@@ -150,7 +152,7 @@ class RightNowViewController: UIViewController, UITableViewDataSource {
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject!) {
         if (segue.identifier == "detailsSegue") {
-            var detailsVC = segue.destinationViewController as! TabBarController
+            let detailsVC = segue.destinationViewController as! TabBarController
             detailsVC.data = self.data as NSDictionary
         }
     }

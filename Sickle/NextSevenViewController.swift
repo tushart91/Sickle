@@ -45,7 +45,7 @@ class NextSevenViewController: UIViewController, UITableViewDataSource {
     }
     
     func convertTime(timestamp: Double, timezoneStr: String) -> String! {
-        var time: NSDate! = NSDate(timeIntervalSince1970: timestamp)
+        let time: NSDate! = NSDate(timeIntervalSince1970: timestamp)
         let timezone: NSDateFormatter = NSDateFormatter()
         timezone.timeZone = NSTimeZone(name: timezoneStr)
         timezone.dateFormat = "EEEE, MMM dd"
@@ -56,7 +56,7 @@ class NextSevenViewController: UIViewController, UITableViewDataSource {
         let cellIdentifier = ["next7title", "next7cell"]
         var cell: NextSevenViewCell!
         if (indexPath.item == 0) {
-            var titleCellView: NextSevenTitleViewCell = tableView.dequeueReusableCellWithIdentifier(cellIdentifier[indexPath.item]) as! NextSevenTitleViewCell
+            let titleCellView: NextSevenTitleViewCell = tableView.dequeueReusableCellWithIdentifier(cellIdentifier[indexPath.item]) as! NextSevenTitleViewCell
             titleCellView.nextSevenTitle.text = "More Details for " + (self.data["city"] as? String)! + ", "  + (self.data["state"] as? String)!
             tableView.rowHeight = 44
             return titleCellView

@@ -10,7 +10,7 @@ import UIKit
 
 class ViewController: UIViewController, UIPickerViewDataSource, UIPickerViewDelegate {
     
-    override func touchesBegan(touches: Set<NSObject>, withEvent event: UIEvent) {
+    override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {
         self.view.endEditing(true)
     }
     
@@ -84,10 +84,10 @@ class ViewController: UIViewController, UIPickerViewDataSource, UIPickerViewDele
     }
     
     @IBAction func searchButton(sender: AnyObject) {
-        var address: String! = addressTextField.text.stringByAddingPercentEncodingWithAllowedCharacters(NSCharacterSet.URLQueryAllowedCharacterSet())!
-        var city: String! = cityTextField.text.stringByAddingPercentEncodingWithAllowedCharacters(NSCharacterSet.URLQueryAllowedCharacterSet())!
-        var state: String! = pickerData[1][statePicker.selectedRowInComponent(0)]
-        var unit: String! = temperature[temperatureSelector.selectedSegmentIndex]
+        let address: String! = (addressTextField.text!).stringByAddingPercentEncodingWithAllowedCharacters(NSCharacterSet.URLQueryAllowedCharacterSet())!
+        let city: String! = cityTextField.text!.stringByAddingPercentEncodingWithAllowedCharacters(NSCharacterSet.URLQueryAllowedCharacterSet())!
+        let state: String! = pickerData[1][statePicker.selectedRowInComponent(0)]
+        let unit: String! = temperature[temperatureSelector.selectedSegmentIndex]
         self.url = "http://sickle-env.elasticbeanstalk.com/index.php?" +
             "address=" + address + "&city=" + city + "&state=" + state + "&unit=" + unit
         self.url = "http://sickle-env.elasticbeanstalk.com/index.php?address=1282%20W%2029th%20St&city=Los%20Angeles&state=CA&unit=us"
@@ -96,8 +96,8 @@ class ViewController: UIViewController, UIPickerViewDataSource, UIPickerViewDele
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject!) {
         if (segue.identifier == "rightNowSegue") {
-            var detailVC = segue.destinationViewController as! RightNowViewController
-            detailVC.url = self.url as! String
+            let detailVC = segue.destinationViewController as! RightNowViewController
+            detailVC.url = self.url as String
         }
     }
 
@@ -117,7 +117,7 @@ class ViewController: UIViewController, UIPickerViewDataSource, UIPickerViewDele
         return pickerData[0].count;
     }
     
-    func pickerView(pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String! {
+    func pickerView(pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
         return pickerData[0][row]
     }
 }

@@ -37,7 +37,7 @@ class NextHoursViewController: UIViewController, UITableViewDataSource {
     }
     
     func convertTime(timestamp: Double, timezoneStr: String) -> String! {
-        var time: NSDate! = NSDate(timeIntervalSince1970: timestamp)
+        let time: NSDate! = NSDate(timeIntervalSince1970: timestamp)
         let timezone: NSDateFormatter = NSDateFormatter()
         timezone.timeZone = NSTimeZone(name: timezoneStr)
         timezone.dateFormat = "h:mm a"
@@ -56,12 +56,12 @@ class NextHoursViewController: UIViewController, UITableViewDataSource {
         let cellIdentifier = ["next24title", "next24head", "next24cell"]
         var cell: NextHoursViewCell!
         if (indexPath.item == 0) {
-            var titleCellView: NextHoursTitleViewCell = tableView.dequeueReusableCellWithIdentifier(cellIdentifier[indexPath.item]) as! NextHoursTitleViewCell
+            let titleCellView: NextHoursTitleViewCell = tableView.dequeueReusableCellWithIdentifier(cellIdentifier[indexPath.item]) as! NextHoursTitleViewCell
             titleCellView.next24TitleLabel.text = "More Details for " + (self.data["city"] as? String)! + ", "  + (self.data["state"] as? String)!
             return titleCellView
         }
         else if (indexPath.item == 1) {
-            var headerCellView: NextHoursHeaderViewCell = tableView.dequeueReusableCellWithIdentifier(cellIdentifier[indexPath.item]) as! NextHoursHeaderViewCell
+            let headerCellView: NextHoursHeaderViewCell = tableView.dequeueReusableCellWithIdentifier(cellIdentifier[indexPath.item]) as! NextHoursHeaderViewCell
             headerCellView.next24TempHeaderLabel.text = "Temp (°" + (unit[self.data!["unit"] as! String]!["temperature"])! + ")"
             return headerCellView
         }

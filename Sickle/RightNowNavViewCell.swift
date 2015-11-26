@@ -13,5 +13,6 @@ class RightNowNavViewCell: UITableViewCell {
     @IBOutlet weak var rightNowMapButton: UIButton!
     @IBOutlet weak var rightNowDetailsButton: UIButton!
     @IBOutlet weak var rightNowImageView: UIImageView!
+    @IBOutlet weak var rightNowShareButton: UIButton!
     
 }

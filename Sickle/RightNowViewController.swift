@@ -8,18 +8,20 @@
 
 import UIKit
 import Darwin
+import FBSDKShareKit
 
-class RightNowViewController: UIViewController, UITableViewDataSource {
+class RightNowViewController: UIViewController, UITableViewDataSource, FBSDKSharingDelegate {
     
     var url: String!
     var data: NSDictionary!
+    var content : FBSDKShareLinkContent!
     
     var rightnow_celldata = [
         ["Precipitation", "Chance of Rain", "Wind Speed", "Dew Point", "Humidity", "Visibility", "Sunrise", "Sunset"],
         ["None", "0%", "1.23mph", "31°F", "25%", "10.00mi", "6:23AM", "6:23PM"]
     ]
     
-    var unit:[NSString: [String: String]] = ["us": ["temperature": "F", "windspeed": "mph", "dewpoint": "F", "visibility": "mi", "pressure": "mb"],
+    var unit:[String: [String: String]] = ["us": ["temperature": "F", "windspeed": "mph", "dewpoint": "F", "visibility": "mi", "pressure": "mb"],
         "si": ["temperature": "C", "windspeed": "m/s", "dewpoint": "C", "visibility": "km", "pressure": "hPa"]]
     
     var imagemap:[String: String] = ["clear-day": "clear.png", "clear-night": "clear_night.png", "rain": "rain.png", "snow": "snow.png", "sleet": "sleet.png", "wind": "wind.png", "fog": "fog.png", "cloudy": "cloudy.png", "partly-cloudy-day": "cloud_day.png", "partly-cloudy-night": "cloud_night.png"]
@@ -73,6 +75,12 @@ class RightNowViewController: UIViewController, UITableViewDataSource {
         rightnow_celldata[1][6] = convertTime(((self.data["daily"]!["data"] as! NSArray)[0] as! NSDictionary)["sunriseTime"] as! Double, timezoneStr: self.data["timezone"] as! String)
         
         rightnow_celldata[1][7] = convertTime(((self.data["daily"]!["data"] as! NSArray)[0] as! NSDictionary)["sunsetTime"] as! Double, timezoneStr: self.data["timezone"] as! String)
+        
+        self.content = FBSDKShareLinkContent()
+        self.content.contentURL = NSURL(string: "http://forecast.io")
+        self.content.contentTitle = "Current Weather in " + (self.data!["city"] as? String)! + ", " + (self.data!["state"] as? String)!
+        self.content.contentDescription = (self.data!["currently"]!["summary"] as? String)! + ", " + String((self.data!["currently"]!["temperature"] as? Int)!) + "°" + (unit[self.data!["unit"] as! String]!["temperature"])!
+        self.content.imageURL = NSURL(string: "http://sickle-env.elasticbeanstalk.com/images/" + imagemap[self.data!["currently"]!["icon"] as! String]!)
         
     }
     
@@ -145,6 +153,28 @@ class RightNowViewController: UIViewController, UITableViewDataSource {
         return cell
     }
     
+    func sharer(sharer: FBSDKSharing!, didCompleteWithResults results: [NSObject : AnyObject]!) {
+        var message: String! = "Posted"
+        if (results.isEmpty) {
+            message = "Not Posted"
+        }
+        let toastMessage: UIAlertView! = UIAlertView(title: message, message: nil, delegate: nil, cancelButtonTitle: "Dismiss")
+        toastMessage.show()
+    }
+    
+    func sharer(sharer: FBSDKSharing!, didFailWithError error: NSError!) {
+    }
+    
+    func sharerDidCancel(sharer: FBSDKSharing!) {
+    }
+    
+    @IBAction func shareButtonTouchUpInside(sender: AnyObject) {
+        FBSDKShareDialog.showFromViewController(self, withContent: self.content, delegate: self)
+    }
+    
+    @IBAction func mapButtonTouchUpInside(sender: AnyObject) {
+        self.performSegueWithIdentifier("mapSegue", sender: nil)
+    }
     
     @IBAction func moreDetailsAction(sender: UIButton) {
         self.performSegueWithIdentifier("detailsSegue", sender: nil)
@@ -154,6 +184,11 @@ class RightNowViewController: UIViewController, UITableViewDataSource {
         if (segue.identifier == "detailsSegue") {
             let detailsVC = segue.destinationViewController as! TabBarController
             detailsVC.data = self.data as NSDictionary
+        }
+        if (segue.identifier == "mapSegue") {
+            let mapVC = segue.destinationViewController as! MapViewController
+            mapVC.data = self.data as NSDictionary!
+            
         }
     }
     

@@ -11,6 +11,8 @@ import UIKit
 class NextHoursViewController: UIViewController, UITableViewDataSource {
     
     var data: NSDictionary!
+    var totalRows: Int! = 27
+    @IBOutlet weak var next24Table: UITableView!
     
     var unit:[String: [String: String]] = ["us": ["temperature": "F", "windspeed": "mph", "dewpoint": "F", "visibility": "mi", "pressure": "mb"],
         "si": ["temperature": "C", "windspeed": "m/s", "dewpoint": "C", "visibility": "km", "pressure": "hPa"]]
@@ -19,13 +21,8 @@ class NextHoursViewController: UIViewController, UITableViewDataSource {
     
     var precipitation = ["label": ["Heavy", "Moderate", "Light", "Very Light", "None"], "values": [0.4, 0.1, 0.017, 0.002, 0], "length": 5]
     
-    func design() {
-        
-    }
-    
     override func viewDidLoad() {
         super.viewDidLoad()
-        design()
         self.data = (self.tabBarController as! TabBarController).data
     }
     
@@ -49,11 +46,11 @@ class NextHoursViewController: UIViewController, UITableViewDataSource {
     }
     
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 23 + 2
+        return self.totalRows
     }
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cellIdentifier = ["next24title", "next24head", "next24cell"]
+        let cellIdentifier = ["next24title", "next24head", "next24cell", "next48expand"]
         var cell: NextHoursViewCell!
         if (indexPath.item == 0) {
             let titleCellView: NextHoursTitleViewCell = tableView.dequeueReusableCellWithIdentifier(cellIdentifier[indexPath.item]) as! NextHoursTitleViewCell
@@ -65,6 +62,10 @@ class NextHoursViewController: UIViewController, UITableViewDataSource {
             headerCellView.next24TempHeaderLabel.text = "Temp (°" + (unit[self.data!["unit"] as! String]!["temperature"])! + ")"
             return headerCellView
         }
+        else if (self.totalRows == 27 && indexPath.item == 26) {
+            let expandCellView: NextHoursExpandView = tableView.dequeueReusableCellWithIdentifier(cellIdentifier[3]) as! NextHoursExpandView
+            return expandCellView
+        }
         else if (indexPath.item > 1) {
             cell = tableView.dequeueReusableCellWithIdentifier(cellIdentifier[2]) as! NextHoursViewCell
             cell.next24TimeLabel.text = convertTime(((self.data["hourly"]!["data"] as! NSArray)[indexPath.item - 1] as! NSDictionary)["time"] as! Double, timezoneStr: self.data["timezone"] as! String)
@@ -74,9 +75,14 @@ class NextHoursViewController: UIViewController, UITableViewDataSource {
         return cell
     }
     
+    
+    @IBAction func expandTouchUpInside(sender: AnyObject) {
+        self.totalRows = 50
+        next24Table.reloadData()
+    }
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
     }
     
 }

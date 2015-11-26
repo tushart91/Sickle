@@ -8,31 +8,27 @@
 
 import UIKit
 
-class ViewController: UIViewController, UIPickerViewDataSource, UIPickerViewDelegate {
+class ViewController: UIViewController, UITableViewDataSource {
     
     override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {
         self.view.endEditing(true)
     }
     
     let pickerData = [[
-            "Select State", "Alabama", "Alaska", "Arizona", "Arkansas", "California", "Colorado", "Connecticut", "Delaware", "District of Columbia", "Florida", "Georgia", "Hawaii", "Idaho", "Illinois", "Indiana", "Iowa", "Kansas", "Kentucky", "Louisiana", "Maine", "Maryland", "Massachusetts", "Michigan", "Minnesota", "Mississippi", "Missouri", "Montana", "Nebraska", "Nevada", "New Hampshire", "New Jersey", "New Mexico", "New York", "North Carolina", "North Dakota", "Ohio", "Oklahoma", "Oregon", "Pennsylvania", "Rhode Island", "South Carolina", "South Dakota", "Tennessee", "Texas", "Utah", "Vermont", "Virginia", "Washington", "West Virginia", "Wisconsin", "Wyoming"
+        "Alabama", "Alaska", "Arizona", "Arkansas", "California", "Colorado", "Connecticut", "Delaware", "District of Columbia", "Florida", "Georgia", "Hawaii", "Idaho", "Illinois", "Indiana", "Iowa", "Kansas", "Kentucky", "Louisiana", "Maine", "Maryland", "Massachusetts", "Michigan", "Minnesota", "Mississippi", "Missouri", "Montana", "Nebraska", "Nevada", "New Hampshire", "New Jersey", "New Mexico", "New York", "North Carolina", "North Dakota", "Ohio", "Oklahoma", "Oregon", "Pennsylvania", "Rhode Island", "South Carolina", "South Dakota", "Tennessee", "Texas", "Utah", "Vermont", "Virginia", "Washington", "West Virginia", "Wisconsin", "Wyoming"
         ],[
-            "", "AK", "AL", "AR", "AZ", "CA", "CO", "CT", "DC", "DE", "FL", "GA", "HI", "IA", "ID", "IL", "IN", "KS", "KY", "LA", "MA", "MD", "ME", "MI", "MN", "MO", "MS", "MT", "NC", "ND", "NE", "NH", "NJ", "NM", "NV", "NY", "OH", "OK", "OR", "PA", "RI", "SC", "SD", "TN", "TX", "UT", "VA", "VT", "WA", "WI", "WV", "WY"
+            "AL", "AK", "AR", "AZ", "CA", "CO", "CT", "DC", "DE", "FL", "GA", "HI", "IA", "ID", "IL", "IN", "KS", "KY", "LA", "MA", "MD", "ME", "MI", "MN", "MO", "MS", "MT", "NC", "ND", "NE", "NH", "NJ", "NM", "NV", "NY", "OH", "OK", "OR", "PA", "RI", "SC", "SD", "TN", "TX", "UT", "VA", "VT", "WA", "WI", "WV", "WY"
         ]
     ]
     
     let temperature = ["us", "si"]
     
-    @IBOutlet weak var bgWebView: UIWebView!
-    @IBOutlet weak var statePicker: UIPickerView!
-    @IBOutlet weak var searchButton: UIButton!
-    @IBOutlet weak var clearButton: UIButton!
-    @IBOutlet weak var poweredByButton: UIButton!
-    @IBOutlet weak var addressTextField: UITextField!
-    @IBOutlet weak var cityTextField: UITextField!
-    @IBOutlet weak var temperatureSelector: UISegmentedControl!
-    
     var url: NSString!
+    var stateIndex: Int! = -1
+    
+    @IBOutlet weak var bgWebView: UIWebView!
+    @IBOutlet weak var poweredByButton: UIButton!
+    @IBOutlet weak var tableView: UITableView!
     
     @IBAction func aboutButton(sender: UIButton) {
         self.performSegueWithIdentifier("aboutSegue", sender: nil)
@@ -45,24 +41,6 @@ class ViewController: UIViewController, UIPickerViewDataSource, UIPickerViewDele
     }
     
     func design() {
-        statePicker.dataSource = self
-        statePicker.delegate = self
-        statePicker.layer.cornerRadius = 6.0
-        statePicker.layer.borderColor = UIColor.grayColor().CGColor
-        statePicker.layer.borderWidth = 0.5
-        statePicker.clipsToBounds = true
-        statePicker.alpha = 0.8
-        
-        searchButton.layer.cornerRadius = 4.0
-        searchButton.layer.borderColor = UIColor.grayColor().CGColor
-        searchButton.layer.borderWidth = 0.3
-        searchButton.clipsToBounds = true
-        
-        clearButton.layer.cornerRadius = 4.0
-        clearButton.layer.borderColor = UIColor.grayColor().CGColor
-        clearButton.layer.borderWidth = 0.3
-        clearButton.clipsToBounds = true
-        
         poweredByButton.layer.cornerRadius = 4.0
         poweredByButton.layer.borderColor = UIColor.grayColor().CGColor
         poweredByButton.layer.borderWidth = 0.3
@@ -83,42 +61,106 @@ class ViewController: UIViewController, UIPickerViewDataSource, UIPickerViewDele
         self.navigationController?.navigationBarHidden = false
     }
     
-    @IBAction func searchButton(sender: AnyObject) {
-        let address: String! = (addressTextField.text!).stringByAddingPercentEncodingWithAllowedCharacters(NSCharacterSet.URLQueryAllowedCharacterSet())!
-        let city: String! = cityTextField.text!.stringByAddingPercentEncodingWithAllowedCharacters(NSCharacterSet.URLQueryAllowedCharacterSet())!
-        let state: String! = pickerData[1][statePicker.selectedRowInComponent(0)]
-        let unit: String! = temperature[temperatureSelector.selectedSegmentIndex]
-        self.url = "http://sickle-env.elasticbeanstalk.com/index.php?" +
-            "address=" + address + "&city=" + city + "&state=" + state + "&unit=" + unit
-        self.url = "http://sickle-env.elasticbeanstalk.com/index.php?address=1282%20W%2029th%20St&city=Los%20Angeles&state=CA&unit=us"
-        self.performSegueWithIdentifier("rightNowSegue", sender: nil)
-    }
-    
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject!) {
         if (segue.identifier == "rightNowSegue") {
             let detailVC = segue.destinationViewController as! RightNowViewController
             detailVC.url = self.url as String
         }
+        else if (segue.identifier == "stateSegue") {
+            let stateTVC = segue.destinationViewController as! SelectStateTableViewController
+            stateTVC.states = self.pickerData[0]
+        }
     }
 
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
     @IBAction func forecastURL(sender: AnyObject) {
         UIApplication.sharedApplication().openURL(NSURL(string: "http://www.forecast.io")!)
     }
-
-    func numberOfComponentsInPickerView(pickerView: UIPickerView) -> Int {
+    
+    func numberOfSectionsInTableView(tableView: UITableView) -> Int {
         return 1
     }
     
-    func pickerView(pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
-        return pickerData[0].count;
+    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return 5
     }
     
-    func pickerView(pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
-        return pickerData[0][row]
+    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+        let cellIdentifier = ["formAddress", "formAddress", "formState", "formDegree", "formButtons"]
+        let cell: UITableViewCell! = UITableViewCell()
+        
+        if (indexPath.item == 0) {
+            let formCell: FormAddressTableViewCell! = tableView.dequeueReusableCellWithIdentifier(cellIdentifier[indexPath.item]) as! FormAddressTableViewCell
+            formCell.formAddressLabel.text = "Street"
+            formCell.formAddressTextField.placeholder = "Enter Street Address"
+            return formCell
+        }
+        else if (indexPath.item == 1) {
+            let formCell: FormAddressTableViewCell! = tableView.dequeueReusableCellWithIdentifier(cellIdentifier[indexPath.item]) as! FormAddressTableViewCell
+            formCell.formAddressLabel.text = "City"
+            formCell.formAddressTextField.placeholder = "Enter City"
+            return formCell
+        }
+        else if (indexPath.item == 2) {
+            let formCell: FormStateTableViewCell! = tableView.dequeueReusableCellWithIdentifier(cellIdentifier[indexPath.item]) as! FormStateTableViewCell
+            formCell.formStateLabel.text = "State"
+            formCell.formStateChosenLabel.text = "Select"
+            return formCell
+        }
+        else if (indexPath.item == 3) {
+            let formCell: FormDegreeTableViewCell! = tableView.dequeueReusableCellWithIdentifier(cellIdentifier[indexPath.item]) as! FormDegreeTableViewCell
+            formCell.formDegreeLabel.text = "Degree"
+            return formCell
+        }
+        else if (indexPath.item == 4) {
+            let formCell: FormButtonsTableViewCell! = tableView.dequeueReusableCellWithIdentifier(cellIdentifier[indexPath.item]) as! FormButtonsTableViewCell
+            formCell.formSearchButton.layer.cornerRadius = 4.0
+            formCell.formSearchButton.layer.borderColor = UIColor.grayColor().CGColor
+            formCell.formSearchButton.layer.borderWidth = 0.3
+            formCell.formSearchButton.clipsToBounds = true
+
+            formCell.formClearButton.layer.cornerRadius = 4.0
+            formCell.formClearButton.layer.borderColor = UIColor.grayColor().CGColor
+            formCell.formClearButton.layer.borderWidth = 0.3
+            formCell.formClearButton.clipsToBounds = true
+            
+            return formCell
+        }
+        
+        return cell
+    }
+    
+    @IBAction func formSearchTouchUpInside(sender: AnyObject) {
+        
+        let addressIndexPath: NSIndexPath! = NSIndexPath(forItem: 0, inSection: 0)
+        var cell: FormAddressTableViewCell! = self.tableView.cellForRowAtIndexPath(addressIndexPath) as! FormAddressTableViewCell
+        cell.formAddressTextField.resignFirstResponder()
+        let address: String! = cell.formAddressTextField.text!.stringByAddingPercentEncodingWithAllowedCharacters(NSCharacterSet.URLQueryAllowedCharacterSet())!
+        
+        let cityIndexPath: NSIndexPath! = NSIndexPath(forItem: 1, inSection: 0)
+        cell = self.tableView.cellForRowAtIndexPath(cityIndexPath) as! FormAddressTableViewCell
+        cell.formAddressTextField.resignFirstResponder()
+        let city: String! = cell.formAddressTextField.text!.stringByAddingPercentEncodingWithAllowedCharacters(NSCharacterSet.URLQueryAllowedCharacterSet())!
+        
+        let state: String! = pickerData[1][self.stateIndex]
+        
+        let degreeIndexPath: NSIndexPath! = NSIndexPath(forItem: 3, inSection: 0)
+        let degreeCell: FormDegreeTableViewCell! = self.tableView.cellForRowAtIndexPath(degreeIndexPath) as! FormDegreeTableViewCell
+        let unit: String! = temperature[degreeCell.formDegreeSegmentedControl.selectedSegmentIndex]
+        
+        self.url = "http://sickle-env.elasticbeanstalk.com/index.php?" +
+            "address=" + address + "&city=" + city + "&state=" + state + "&unit=" + unit
+        print(self.url)
+        self.url = "http://sickle-env.elasticbeanstalk.com/index.php?address=1282%20W%2029th%20St&city=Los%20Angeles&state=CA&unit=us"
+        self.performSegueWithIdentifier("rightNowSegue", sender: nil)
+        
+    }
+    
+    @IBAction func formClearTouchUpInside(sender: AnyObject) {
+        
+    }
+    
+    override func didReceiveMemoryWarning() {
+        super.didReceiveMemoryWarning()
     }
 }
 

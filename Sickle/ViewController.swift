@@ -69,6 +69,7 @@ class ViewController: UIViewController, UITableViewDataSource {
         else if (segue.identifier == "stateSegue") {
             let stateTVC = segue.destinationViewController as! SelectStateTableViewController
             stateTVC.states = self.pickerData[0]
+            stateTVC.selectedIndex = self.stateIndex
         }
     }
 
@@ -140,7 +141,7 @@ class ViewController: UIViewController, UITableViewDataSource {
         cell = self.tableView.cellForRowAtIndexPath(cityIndexPath) as! FormAddressTableViewCell
         cell.formAddressTextField.resignFirstResponder()
         let city: String! = cell.formAddressTextField.text!.stringByAddingPercentEncodingWithAllowedCharacters(NSCharacterSet.URLQueryAllowedCharacterSet())!
-        
+        self.stateIndex = 3
         let state: String! = pickerData[1][self.stateIndex]
         
         let degreeIndexPath: NSIndexPath! = NSIndexPath(forItem: 3, inSection: 0)

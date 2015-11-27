@@ -12,27 +12,30 @@ import MapKit
 class MapViewController: UIViewController {
     
     var data: NSDictionary!
+    var weatherMap: AWFWeatherMap!
+    var mapLegend: AWFWeatherMapLegendView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        let location = CLLocation(latitude: data["latitude"] as! Double, longitude: data["longitude"] as! Double)
-        
         let aerisConsumerId: String! = "Wu2WiydcDfv8EOkZ8U6J2"
         let aerisConsumerSecret: String! = "FjJ4vGVobaGUpUJwsISwbbmh70l7Y9j7CJNPVLNf"
-        
         AerisEngine.engineWithKey(aerisConsumerId, secret: aerisConsumerSecret)
+        AerisEngine.debugDescription()
         
-        let weatherMap: AWFWeatherMap = AWFWeatherMap(mapType: AWFWeatherMapType.Apple)
-        weatherMap.config.animationEnabled = true
-        weatherMap.weatherMapView.frame = self.view.bounds
-        weatherMap.setMapCenterCoordinate(location.coordinate, zoomLevel: 11, animated: true)
-        weatherMap.addLayerType(AWFLayerType.Radar)
-        weatherMap.addLayerType(AWFLayerType.Satellite)
-        let mapLegend: AWFWeatherMapLegendView = AWFWeatherMapLegendView()
-        mapLegend.addLegendForLayerType(AWFLayerType.Radar)
-        mapLegend.addLegendForLayerType(AWFLayerType.Satellite)
-        mapLegend.sizeToFit()
+        let location = CLLocation(latitude: data["latitude"] as! Double, longitude: data["longitude"] as! Double)
+        
+        self.weatherMap = AWFWeatherMap(mapType: AWFWeatherMapType.Apple)
+        self.weatherMap.weatherMapView.frame = CGRectMake(0, 115, self.view.bounds.width, self.view.bounds.height - 115)
+        self.weatherMap.setMapCenterCoordinate(location.coordinate, zoomLevel: 11, animated: true)
+        
+        self.weatherMap.addLayerType(AWFLayerType.Radar)
+        self.weatherMap.addLayerType(AWFLayerType.Satellite)
+        
+        self.mapLegend = AWFWeatherMapLegendView(mapConfig: weatherMap.config, frame: CGRectMake(0, 64, self.view.bounds.width, 10))
+        self.mapLegend.addLegendForLayerType(AWFLayerType.Radar)
+        self.mapLegend.sizeToFit()
+        
         self.view.addSubview(weatherMap.weatherMapView)
         self.view.addSubview(mapLegend)
         
@@ -42,7 +45,7 @@ class MapViewController: UIViewController {
 //        let regionRadius: CLLocationDistance = 9000
 //        let coordinateRegion = MKCoordinateRegionMakeWithDistance(location.coordinate,
 //            regionRadius, regionRadius)
-//        self.weatherMapKit.setRegion(coordinateRegion, animated: true)
+//        self.weatherMap.setRegion(coordinateRegion, animated: true)
 //        addAnnotation(location)
 //    }
 //    

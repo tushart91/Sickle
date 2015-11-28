@@ -17,7 +17,7 @@ class ViewController: UIViewController, UITableViewDataSource {
     let pickerData = [[
         "Alabama", "Alaska", "Arizona", "Arkansas", "California", "Colorado", "Connecticut", "Delaware", "District of Columbia", "Florida", "Georgia", "Hawaii", "Idaho", "Illinois", "Indiana", "Iowa", "Kansas", "Kentucky", "Louisiana", "Maine", "Maryland", "Massachusetts", "Michigan", "Minnesota", "Mississippi", "Missouri", "Montana", "Nebraska", "Nevada", "New Hampshire", "New Jersey", "New Mexico", "New York", "North Carolina", "North Dakota", "Ohio", "Oklahoma", "Oregon", "Pennsylvania", "Rhode Island", "South Carolina", "South Dakota", "Tennessee", "Texas", "Utah", "Vermont", "Virginia", "Washington", "West Virginia", "Wisconsin", "Wyoming"
         ],[
-            "AL", "AK", "AR", "AZ", "CA", "CO", "CT", "DC", "DE", "FL", "GA", "HI", "IA", "ID", "IL", "IN", "KS", "KY", "LA", "MA", "MD", "ME", "MI", "MN", "MO", "MS", "MT", "NC", "ND", "NE", "NH", "NJ", "NM", "NV", "NY", "OH", "OK", "OR", "PA", "RI", "SC", "SD", "TN", "TX", "UT", "VA", "VT", "WA", "WI", "WV", "WY"
+            "AL", "AK", "AZ", "AR", "CA", "CO", "CT", "DE", "DC", "FL", "GA", "HI", "ID", "IL", "IN", "IA", "KS", "KY", "LA", "ME", "MD", "MA", "MI", "MN", "MS", "MO", "MT", "NE", "NV", "NH", "NJ", "NM", "NY", "NC", "ND", "OH", "OK", "OR", "PA", "RI", "SC", "SD", "TN", "TX", "UT", "VT", "VA", "WA", "WV", "WI", "WY"
         ]
     ]
     
@@ -29,6 +29,7 @@ class ViewController: UIViewController, UITableViewDataSource {
     @IBOutlet weak var bgWebView: UIWebView!
     @IBOutlet weak var poweredByButton: UIButton!
     @IBOutlet weak var tableView: UITableView!
+    @IBOutlet weak var errorLabel: UILabel!
     
     @IBAction func aboutButton(sender: UIButton) {
         self.performSegueWithIdentifier("aboutSegue", sender: nil)
@@ -136,13 +137,26 @@ class ViewController: UIViewController, UITableViewDataSource {
         var cell: FormAddressTableViewCell! = self.tableView.cellForRowAtIndexPath(addressIndexPath) as! FormAddressTableViewCell
         cell.formAddressTextField.resignFirstResponder()
         let address: String! = cell.formAddressTextField.text!.stringByAddingPercentEncodingWithAllowedCharacters(NSCharacterSet.URLQueryAllowedCharacterSet())!
+        if (address == "") {
+            errorLabel.text = "Please Enter Street Address"
+            return
+        }
         
         let cityIndexPath: NSIndexPath! = NSIndexPath(forItem: 1, inSection: 0)
         cell = self.tableView.cellForRowAtIndexPath(cityIndexPath) as! FormAddressTableViewCell
         cell.formAddressTextField.resignFirstResponder()
         let city: String! = cell.formAddressTextField.text!.stringByAddingPercentEncodingWithAllowedCharacters(NSCharacterSet.URLQueryAllowedCharacterSet())!
-        self.stateIndex = 3
+        if (city == "") {
+            errorLabel.text = "Please Enter City"
+            return
+        }
+
+        if (self.stateIndex == -1) {
+            errorLabel.text = "Please Choose a State"
+            return
+        }
         let state: String! = pickerData[1][self.stateIndex]
+        errorLabel.text = ""
         
         let degreeIndexPath: NSIndexPath! = NSIndexPath(forItem: 3, inSection: 0)
         let degreeCell: FormDegreeTableViewCell! = self.tableView.cellForRowAtIndexPath(degreeIndexPath) as! FormDegreeTableViewCell
@@ -151,12 +165,30 @@ class ViewController: UIViewController, UITableViewDataSource {
         self.url = "http://sickle-env.elasticbeanstalk.com/index.php?" +
             "address=" + address + "&city=" + city + "&state=" + state + "&unit=" + unit
         print(self.url)
-        self.url = "http://sickle-env.elasticbeanstalk.com/index.php?address=1282%20W%2029th%20St&city=Los%20Angeles&state=CA&unit=us"
+//        self.url = "http://sickle-env.elasticbeanstalk.com/index.php?address=1282%20W%2029th%20St&city=Los%20Angeles&state=CA&unit=us"
         self.performSegueWithIdentifier("rightNowSegue", sender: nil)
         
     }
     
     @IBAction func formClearTouchUpInside(sender: AnyObject) {
+        let addressIndexPath: NSIndexPath! = NSIndexPath(forItem: 0, inSection: 0)
+        var cell: FormAddressTableViewCell! = self.tableView.cellForRowAtIndexPath(addressIndexPath) as! FormAddressTableViewCell
+        cell.formAddressTextField.text = ""
+        
+        let cityIndexPath: NSIndexPath! = NSIndexPath(forItem: 1, inSection: 0)
+        cell = self.tableView.cellForRowAtIndexPath(cityIndexPath) as! FormAddressTableViewCell
+        cell.formAddressTextField.text = ""
+        
+        self.stateIndex = -1
+        let stateIndexPath: NSIndexPath! = NSIndexPath(forItem: 2, inSection: 0)
+        let stateCell: FormStateTableViewCell! = self.tableView.cellForRowAtIndexPath(stateIndexPath) as! FormStateTableViewCell
+        stateCell.detailTextLabel?.text = "Select"
+        
+        let degreeIndexPath: NSIndexPath! = NSIndexPath(forItem: 3, inSection: 0)
+        let degreeCell: FormDegreeTableViewCell! = self.tableView.cellForRowAtIndexPath(degreeIndexPath) as! FormDegreeTableViewCell
+        degreeCell.formDegreeSegmentedControl.selectedSegmentIndex = 0
+        
+        errorLabel.text = ""
         
     }
     

@@ -154,9 +154,9 @@ class RightNowViewController: UIViewController, UITableViewDataSource, FBSDKShar
     }
     
     func sharer(sharer: FBSDKSharing!, didCompleteWithResults results: [NSObject : AnyObject]!) {
-        var message: String! = "Posted"
+        var message: String! = "Post Successful"
         if (results.isEmpty) {
-            message = "Not Posted"
+            message = "Post Cancelled"
         }
         let toastMessage: UIAlertView! = UIAlertView(title: message, message: nil, delegate: nil, cancelButtonTitle: "Dismiss")
         toastMessage.show()

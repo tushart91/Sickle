@@ -28,7 +28,13 @@ class SelectStateTableViewController: UITableViewController {
         else {
             rootVC.stateIndex = -1
         }
-        
+    }
+    
+    override func viewWillAppear(animated: Bool) {
+        if (selectedIndex != -1) {
+            let stateIndexPath: NSIndexPath! = NSIndexPath(forItem: self.selectedIndex, inSection: 0)
+            self.tableView.scrollToRowAtIndexPath(stateIndexPath, atScrollPosition: UITableViewScrollPosition.Middle, animated: false)
+        }
     }
     
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -59,6 +65,7 @@ class SelectStateTableViewController: UITableViewController {
             self.selectedIndex = indexPath.item
             tableView.reloadData()
         }
+        self.navigationController?.popViewControllerAnimated(true)
     }
     
 }
